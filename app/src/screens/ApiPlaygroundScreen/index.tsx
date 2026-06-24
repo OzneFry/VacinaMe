@@ -5,13 +5,7 @@ import { AppCard } from '../../components/AppCard';
 import { AppHeader } from '../../components/AppHeader';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { theme } from '../../theme';
-
-type Vaccine = {
-  id: number;
-  nome: string;
-  local: string;
-  data: string;
-};
+import { type Vaccine } from '../../types/vaccine';
 
 const API_URL = Platform.OS === 'web' ? 'http://127.0.0.1:3000/vaccines' : 'http://10.0.2.2:3000/vaccines';
 

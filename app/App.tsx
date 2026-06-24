@@ -1,13 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
-import { ApiPlaygroundScreen } from './src/screens/ApiPlaygroundScreen';
+import { AppNavigator } from './src/app/AppNavigator';
+import { AuthProvider } from './src/app/providers';
 
 export default function App() {
   return (
-    <>
+    <AuthProvider>
       <StatusBar style="auto" />
-      <ApiPlaygroundScreen />
-    </>
+      <AppNavigator />
+    </AuthProvider>
   );
 }
