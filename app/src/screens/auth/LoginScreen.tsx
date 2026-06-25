@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Platform, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
+import { Bell, Shield, Syringe } from 'lucide-react-native';
 
+import { AppCard } from '../../components/shared/AppCard';
+import { ScreenContainer } from '../../components/shared/ScreenContainer';
 import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
 import { useAuth } from '../../hooks/useAuth';
 import { theme } from '../../theme';
 
@@ -59,142 +61,60 @@ export function LoginScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Card variant="elevated" style={styles.card}>
-        <View style={styles.iconWrap}>
-          <Text style={styles.icon}>💉</Text>
+    <ScreenContainer contentClassName="justify-center">
+      <AppCard variant="elevated" className="items-center gap-6 py-8">
+        <View className="w-full items-center gap-3 rounded-2xl bg-blue-50 px-4 py-6">
+          <View className="h-16 w-16 items-center justify-center rounded-full bg-white">
+            <Shield size={28} color="#2563eb" />
+          </View>
+          <Text className="text-center text-2xl font-bold text-slate-900">Acesse o sistema de vacinas</Text>
+          <Text className="text-center text-base leading-6 text-slate-600">
+            Entre para entrar na navegação principal do aplicativo.
+          </Text>
         </View>
 
-        <Text style={styles.title}>Acesse o sistema de vacinas</Text>
-        <Text style={styles.subtitle}>Entre para entrar na navegação principal do aplicativo.</Text>
-
-        <View style={styles.playgroundSection}>
-          <Text style={styles.playgroundTitle}>API Playground</Text>
-          <Text style={styles.playgroundDescription}>
+        <View className="w-full gap-4">
+          <View className="flex-row items-center gap-2">
+            <Syringe size={18} color="#2563eb" />
+            <Text className="text-lg font-bold text-slate-900">API Playground</Text>
+          </View>
+          <Text className="text-sm leading-5 text-slate-500">
             Esta tela consome uma API local com fetch, useState e useEffect.
           </Text>
 
           {loading ? (
-            <View style={styles.stateContainer}>
+            <View className="min-h-20 items-center justify-center rounded-2xl bg-slate-50 p-4">
               <ActivityIndicator size="large" color={theme.colors.primary} />
-              <Text style={styles.stateText}>Carregando vacinas...</Text>
+              <Text className="mt-2 text-sm text-slate-500">Carregando vacinas...</Text>
             </View>
           ) : error ? (
-            <View style={styles.stateContainer}>
-              <Text style={styles.errorText}>{error}</Text>
+            <View className="min-h-20 items-center justify-center rounded-2xl bg-red-50 px-4 py-5">
+              <Text className="text-center text-sm text-red-600">{error}</Text>
             </View>
           ) : vaccines.length === 0 ? (
-            <View style={styles.stateContainer}>
-              <Text style={styles.emptyText}>Nenhuma vacina disponível no momento.</Text>
+            <View className="min-h-20 items-center justify-center rounded-2xl bg-slate-50 px-4 py-5">
+              <Text className="text-center text-sm text-slate-500">Nenhuma vacina disponível no momento.</Text>
             </View>
           ) : (
-            <View style={styles.listContainer}>
+            <View className="gap-2 rounded-2xl bg-slate-50 p-3">
               {vaccines.map((item) => (
-                <View key={item.id} style={styles.itemCard}>
-                  <Text style={styles.itemName}>{item.nome}</Text>
-                  <Text style={styles.itemDetail}>Local: {item.local}</Text>
-                  <Text style={styles.itemDetail}>Data: {item.data}</Text>
+                <View key={item.id} className="rounded-2xl bg-white p-3">
+                  <Text className="mb-0.5 font-bold text-slate-900">{item.nome}</Text>
+                  <Text className="text-sm text-slate-500">Local: {item.local}</Text>
+                  <Text className="text-sm text-slate-500">Data: {item.data}</Text>
                 </View>
               ))}
             </View>
           )}
         </View>
 
-        <Button label="Entrar" onPress={signIn} style={styles.button} />
-      </Card>
-    </View>
+        <View className="w-full flex-row items-center gap-2 rounded-2xl bg-blue-50 px-4 py-3">
+          <Bell size={16} color="#2563eb" />
+          <Text className="flex-1 text-sm leading-5 text-slate-600">Ambiente preparado para acesso seguro e leitura rápida em mobile.</Text>
+        </View>
+
+        <Button label="Entrar" onPress={signIn} className="w-full" />
+      </AppCard>
+    </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: theme.spacing.xl,
-    backgroundColor: theme.colors.background,
-  },
-  card: {
-    alignItems: 'center',
-    paddingVertical: theme.spacing.xxl,
-  },
-  iconWrap: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    backgroundColor: theme.colors.backgroundAlt,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: theme.spacing.lg,
-  },
-  icon: {
-    fontSize: 32,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    marginBottom: theme.spacing.xs,
-    textAlign: 'center',
-    color: theme.colors.text,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: theme.colors.mutedText,
-    marginBottom: theme.spacing.lg,
-    textAlign: 'center',
-    lineHeight: 22,
-  },
-  playgroundSection: {
-    width: '100%',
-    marginBottom: theme.spacing.lg,
-  },
-  playgroundTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: theme.colors.text,
-    marginBottom: theme.spacing.xs,
-  },
-  playgroundDescription: {
-    fontSize: 14,
-    color: theme.colors.mutedText,
-    marginBottom: theme.spacing.md,
-    lineHeight: 20,
-  },
-  stateContainer: {
-    minHeight: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  stateText: {
-    fontSize: 14,
-    color: theme.colors.mutedText,
-    marginTop: theme.spacing.sm,
-  },
-  errorText: {
-    color: theme.colors.danger,
-    textAlign: 'center',
-  },
-  emptyText: {
-    color: theme.colors.mutedText,
-    textAlign: 'center',
-  },
-  listContainer: {
-    gap: theme.spacing.sm,
-  },
-  itemCard: {
-    backgroundColor: theme.colors.surfaceMuted,
-    borderRadius: theme.borderRadius.md,
-    padding: theme.spacing.sm,
-  },
-  itemName: {
-    fontWeight: '700',
-    color: theme.colors.text,
-    marginBottom: 2,
-  },
-  itemDetail: {
-    color: theme.colors.mutedText,
-    fontSize: 13,
-  },
-  button: {
-    width: '100%',
-  },
-});

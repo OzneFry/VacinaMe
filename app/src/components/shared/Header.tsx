@@ -7,8 +7,8 @@ interface HeaderProps {
 
 export function Header({ title }: HeaderProps) {
   return (
-    <View style={{ padding: 16 }}>
-      <Text style={{ fontSize: 20, fontWeight: '600' }}>{title}</Text>
+    <View className="px-4 py-2">
+      <Text className="text-2xl font-bold leading-8 text-slate-900">{title}</Text>
     </View>
   );
 }
