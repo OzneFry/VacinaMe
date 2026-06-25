@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 import { AppCard } from '../../components/AppCard';
 import { AppHeader } from '../../components/AppHeader';
@@ -27,110 +27,48 @@ const mockItems: MockItem[] = [
 
 export function FlatListPlaygroundScreen() {
   const renderItem = ({ item }: { item: MockItem }) => (
-    <AppCard style={styles.itemCard}>
-      <Text style={styles.itemName}>{item.nome}</Text>
-      <Text style={styles.itemCity}>{item.cidade}</Text>
+    <AppCard className="gap-1">
+      <Text className="text-base font-bold text-slate-800">{item.nome}</Text>
+      <Text className="text-sm text-slate-500">{item.cidade}</Text>
     </AppCard>
   );
 
   return (
-    <ScreenContainer contentStyle={styles.screenContent}>
+    <ScreenContainer contentClassName="gap-4" scrollable={false}>
       <AppHeader title="FlatList Playground" />
 
-      <Text style={styles.introText}>
+      <Text className="text-sm leading-5 text-slate-500">
         O FlatList é utilizado para renderizar listas de forma performática no React Native.
       </Text>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>1. Lista principal</Text>
+      <View className="flex-1 min-h-[220px] gap-3">
+        <Text className="text-base font-bold text-slate-800">1. Lista principal</Text>
 
         {/* O prop data informa quais itens serão exibidos na lista. */}
         <FlatList
           data={mockItems}
-          // O prop renderItem define como cada item será apresentado na tela.
           renderItem={renderItem}
-          // O prop keyExtractor gera uma chave única para cada item da lista.
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={{ gap: 12, paddingBottom: 16 }}
           showsVerticalScrollIndicator={false}
         />
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>2. Demonstração extra</Text>
+      <View className="flex-1 min-h-[220px] gap-3">
+        <Text className="text-base font-bold text-slate-800">2. Demonstração extra</Text>
 
         <FlatList
           data={mockItems.slice(0, 5)}
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          style={styles.secondaryList}
-          contentContainerStyle={styles.secondaryContent}
-          ListHeaderComponent={<Text style={styles.helperText}>ListHeaderComponent</Text>}
-          ListFooterComponent={<Text style={styles.helperText}>ListFooterComponent</Text>}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          style={{ maxHeight: 240 }}
+          contentContainerStyle={{ gap: 8, padding: 12, borderWidth: 1, borderColor: '#dbe7f8', borderRadius: 12, backgroundColor: '#ffffff' }}
+          ListHeaderComponent={<Text className="mb-1 text-[13px] font-semibold text-blue-600">ListHeaderComponent</Text>}
+          ListFooterComponent={<Text className="mt-1 text-[13px] font-semibold text-blue-600">ListFooterComponent</Text>}
+          ItemSeparatorComponent={() => <View className="h-2" />}
           showsVerticalScrollIndicator={false}
         />
       </View>
     </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  screenContent: {
-    flex: 1,
-    gap: 12,
-  },
-  introText: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: theme.colors.mutedText,
-    marginBottom: theme.spacing.sm,
-  },
-  section: {
-    flex: 1,
-    minHeight: 220,
-    marginBottom: theme.spacing.md,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: theme.colors.text,
-    marginBottom: theme.spacing.sm,
-  },
-  listContent: {
-    gap: 10,
-    paddingBottom: theme.spacing.md,
-  },
-  itemCard: {
-    gap: 6,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-  itemCity: {
-    fontSize: 14,
-    color: theme.colors.mutedText,
-  },
-  secondaryList: {
-    maxHeight: 240,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.borderRadius.md,
-    padding: theme.spacing.sm,
-    backgroundColor: theme.colors.surface,
-  },
-  secondaryContent: {
-    gap: 8,
-  },
-  helperText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: theme.colors.primary,
-    marginBottom: theme.spacing.xs,
-  },
-  separator: {
-    height: 8,
-  },
-});

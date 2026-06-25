@@ -1,56 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import { theme } from '../../theme';
+import { Text, View } from 'react-native';
 
 interface EmptyStateProps {
   title: string;
   description?: string;
+  suggestedAction?: string;
 }
 
-export function EmptyState({ title, description }: EmptyStateProps) {
+export function EmptyState({ title, description, suggestedAction }: EmptyStateProps) {
   return (
-    <View style={styles.container}>
-      <View style={styles.iconWrap}>
-        <Text style={styles.icon}>✚</Text>
+    <View className="flex-1 items-center justify-center rounded-2xl bg-slate-100 p-8">
+      <View className="mb-4 h-14 w-14 items-center justify-center rounded-full bg-blue-100">
+        <Text className="text-2xl text-blue-600">✚</Text>
       </View>
-      <Text style={styles.title}>{title}</Text>
-      {description ? <Text style={styles.description}>{description}</Text> : null}
+      <Text className="mb-2 text-center text-base font-bold text-slate-800">{title}</Text>
+      {description ? <Text className="text-center text-sm leading-6 text-slate-500">{description}</Text> : null}
+      {suggestedAction ? <Text className="mt-3 text-center text-sm font-medium text-slate-600">{suggestedAction}</Text> : null}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing.xl,
-    backgroundColor: theme.colors.surfaceMuted,
-    borderRadius: theme.borderRadius.lg,
-  },
-  iconWrap: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: theme.colors.backgroundAlt,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: theme.spacing.md,
-  },
-  icon: {
-    fontSize: 24,
-    color: theme.colors.primary,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: theme.colors.text,
-    marginBottom: theme.spacing.xs,
-  },
-  description: {
-    textAlign: 'center',
-    color: theme.colors.mutedText,
-    lineHeight: 20,
-  },
-});

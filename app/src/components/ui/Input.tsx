@@ -1,29 +1,46 @@
 import React from 'react';
-import { StyleSheet, TextInput, type TextInputProps } from 'react-native';
+import { TextInput, View, type TextInputProps } from 'react-native';
 
-import { theme } from '../../theme';
-
-export function Input(props: TextInputProps) {
-  const { style, ...rest } = props;
-
-  return (
-    <TextInput
-      {...rest}
-      style={[styles.input, style]}
-      placeholderTextColor={theme.colors.mutedText}
-    />
-  );
+interface InputProps extends TextInputProps {
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  containerClassName?: string;
 }
 
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.borderRadius.lg,
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.sm,
-    color: theme.colors.text,
-    fontSize: 15,
-  },
-});
+export function Input(props: InputProps) {
+  const { style, className, leftIcon, rightIcon, containerClassName, onFocus, onBlur, ...rest } = props;
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  const handleFocus: TextInputProps['onFocus'] = (event) => {
+    setIsFocused(true);
+    if (onFocus) {
+      onFocus(event);
+    }
+  };
+
+  const handleBlur: TextInputProps['onBlur'] = (event) => {
+    setIsFocused(false);
+    if (onBlur) {
+      onBlur(event);
+    }
+  };
+
+  return (
+    <View
+      className={`min-h-12 flex-row items-center gap-3 rounded-xl border bg-white px-4 ${
+        isFocused ? 'border-blue-500' : 'border-slate-300'
+      } ${containerClassName ?? ''}`}
+    >
+      {leftIcon}
+      <TextInput
+        {...rest}
+        className={`flex-1 py-3 text-[15px] text-slate-800 ${className ?? ''}`}
+        placeholderTextColor="#64748b"
+        style={style}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+      {rightIcon}
+    </View>
+  );
+}

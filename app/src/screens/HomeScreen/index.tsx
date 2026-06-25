@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { AppButton } from '../../components/AppButton';
 import { AppCard } from '../../components/AppCard';
@@ -9,13 +9,13 @@ import { theme } from '../../theme';
 
 export function HomeScreen() {
   return (
-    <ScreenContainer>
+    <ScreenContainer contentClassName="gap-4">
       <AppHeader title="VacinaMe" />
 
-      <View style={styles.content}>
-        <AppCard style={styles.card}>
-          <Text style={styles.title}>Bem-vindo ao início</Text>
-          <Text style={styles.description}>
+      <View className="flex-1 justify-center">
+        <AppCard className="items-start gap-3">
+          <Text className="text-xl font-bold text-slate-800">Bem-vindo ao início</Text>
+          <Text className="text-[15px] leading-6 text-slate-500">
             Esta é a base inicial de layout da aplicação, preparada para evoluir com novas telas e componentes.
           </Text>
           <AppButton title="Exemplo" onPress={() => undefined} />
@@ -24,24 +24,3 @@ export function HomeScreen() {
     </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  card: {
-    alignItems: 'flex-start',
-    gap: 12,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-  description: {
-    fontSize: 15,
-    lineHeight: 22,
-    color: theme.colors.mutedText,
-  },
-});

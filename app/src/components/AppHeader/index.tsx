@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
-
-import { theme } from '../../theme';
+import { Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 
 type AppHeaderProps = {
   title: string;
@@ -11,21 +9,8 @@ type AppHeaderProps = {
 
 export function AppHeader({ title, style, titleStyle }: AppHeaderProps) {
   return (
-    <View style={[styles.container, style]}>
-      <Text style={[styles.title, titleStyle]}>{title}</Text>
+    <View className="w-full items-start py-2" style={style}>
+      <Text className="text-2xl font-bold leading-8 text-slate-900" style={titleStyle}>{title}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingVertical: theme.spacing.sm,
-    alignItems: 'flex-start',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-});
